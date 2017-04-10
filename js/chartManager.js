@@ -1,8 +1,10 @@
 var chartManager = function(dataArr){
-    var myDataArr = [];
+    this.myDataArr = [];
     var dataLength = dataArr.data.length;
     for(var i = 0;i < dataLength;i++){
-        myDataArr.push(dataArr.data[i].value);
+        this.myDataArr.push(dataArr.data[i].value);
     }
-    console.log(myDataArr);
+    // console.log(myDataArr);
+    // var myColoumnChart = new ColoumnChart();
+    // myColoumnChart.coloumnChart(myDataArr);
 }
