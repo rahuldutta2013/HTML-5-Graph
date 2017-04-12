@@ -1,5 +1,13 @@
 #myCanvas{
-       
-        /*height:500px; */
         border:1px solid #d3d3d3;
+}
+.tooltip{
+        position: absolute;
+        background-color: #ffffcc;
+        color:#00264d;
+        border: 1px solid #00264d;
+        padding: .2%;
+        font-size: 12px;
+        font-weight: bold;
+        border-radius: 3px; 
 }

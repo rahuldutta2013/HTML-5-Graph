@@ -1,7 +1,8 @@
 {
     "chart": {
         "caption": "Half Yearly Revenue Analysis",
-        "yaxisname": "Revenue"
+        "yaxisname": "Revenue",
+        "trainLine":"true"
       
     },
     "data": [

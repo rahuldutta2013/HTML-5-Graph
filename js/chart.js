@@ -11,6 +11,10 @@ function Chart() {
     }
 }
 
+var arrOfOrdinate = [],
+    arrOfVal = [];
+
+
 function ColoumnChart() {
     Chart.call(this);
     this.coloumnChart = function (valOfY, canvasWidth, canvasHeight) { //overriding the coloumnChart property of its parent class
@@ -21,8 +25,8 @@ function ColoumnChart() {
             noOfBar = valOfY.length,
             rightGap = (canvasWidth * 5) / 100,
             gapPlusWidthOfBar = ((canvasWidth - rightGap) / noOfBar);
-
-        gapInXAxix = x = widthOfBar = gapPlusWidthOfBar / 2;
+        gapInXAxix = x = widthOfBar = gapPlusWidthOfBar / 2,
+            rects = [];
 
         var graphHeight = (canvasHeight * 97) / 100,
             gapInYaxis = (graphHeight / 10),
@@ -33,7 +37,6 @@ function ColoumnChart() {
             xOrdinate = 0,
             minVal = Math.min.apply(NaN, valOfY),
             maxVal = Math.max.apply(NaN, valOfY),
-
             minAbs = Math.abs(minVal),
             maxAbs = Math.abs(maxVal),
             strMax = JSON.stringify(maxAbs),
@@ -42,7 +45,6 @@ function ColoumnChart() {
             resMin = strMin.split(""),
             addedValMax = resMax.length,
             addedValMin = resMin.length,
-
             limitHigh = Math.pow(10, addedValMax - 2),
             limitLow = Math.pow(10, addedValMin - 2);
 
@@ -54,8 +56,7 @@ function ColoumnChart() {
         }
 
         gap = (maxVal - (minVal)) / 10;
-        console.log(gap);
-
+    
         //drawing the coloumnChart
         for (var p = 0; p < valOfY.length; p++) {
             ctx.fillStyle = "green";
@@ -63,10 +64,24 @@ function ColoumnChart() {
                 valOfY[p] = valOfY[p] - (minVal);
             }
             var val = (gapInYaxis * valOfY[p]) / gap;
+            var obj = {};
+            obj.xordi = xOrdinate + x;
+            obj.y = graphHeight - val;
+            obj.width = widthOfBar;
+            obj.height = val;
+            rects.push(obj);
             ctx.fillRect(xOrdinate + x, graphHeight, widthOfBar, -val);
             xOrdinate = xOrdinate + gapInXAxix + x;
         }
-
+        arrOfOrdinate = rects;
+        arrOfVal = valOfY;
     }
 }
 ColoumnChart.prototype = Chart.prototype; //inheriting the ColoumnChart property from chart class into coloumncahrt class
+
+//attach mousemove event
+$(document).on('mousemove', '#myCanvas', function () {
+    handleMouseMove(event, arrOfOrdinate, arrOfVal);
+})
+
+

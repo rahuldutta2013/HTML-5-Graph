@@ -17,8 +17,8 @@ function Axis(canvasId, canvasHeight, canvasWidth, valOfY) {
 
         //craeting the Y axis (10,0)
         ctx.beginPath();
-        ctx.moveTo(10, 0); //starting point of y-axis(10,0)
-        ctx.lineTo(10, this.canvasHeight);//ending point of y-axis(10,500)
+        ctx.moveTo((this.canvasWidth * 3) / 100, 0); //starting point of y-axis(10,0)
+        ctx.lineTo((this.canvasWidth * 3) / 100, this.canvasHeight);//ending point of y-axis(10,500)
         ctx.stroke();
 
 
@@ -61,12 +61,16 @@ function Axis(canvasId, canvasHeight, canvasWidth, valOfY) {
 
         //creating the division for coloumnChart
         for (var j = 0; j <= 10; j++) {
+           
             ctx.moveTo(0, yaxis);
             ctx.lineTo(1000, yaxis);
             ctx.stroke();
             ctx.beginPath();
-
-            ctx.fillText(maxVal, 10, yaxis); //writing the value in y-axis
+           
+            ctx.fillStyle  = '#00F';
+            // ctx.font  = '90% Sans-Serif';
+            ctx.fillText(maxVal, 0 , yaxis-2); //writing the value in y-axis
+           
             maxVal = maxVal - gap;
             yaxis = yaxis + gapInYaxis;
         }
@@ -81,17 +85,13 @@ function Axis(canvasId, canvasHeight, canvasWidth, valOfY) {
 
         gapInXAxix = x = widthOfBar = gapPlusWidthOfBar / 2;
 
-        console.log(valOfY.data);
+     
         for (var p = 0; p < valOfY.data.length; p++) {
-            ctx.fillStyle = "red";
-
-
-            // ctx.fillRect(xOrdinate + x, canvasHeight, widthOfBar, -val);
-            ctx.fillText(valOfY.data[p].label, xOrdinate + x, canvasHeight - ((canvasHeight * .5) / 100)); //writing the value in y-axis
+            ctx.fillStyle  = '#00F';
+            ctx.font  = 'bold 110% Sans-Serif';
+            ctx.fillText(valOfY.data[p].label, xOrdinate + x, canvasHeight - ((canvasHeight * .5) / 100)); //writing the value in X-axis
             xOrdinate = xOrdinate + gapInXAxix + x;
         }
-
-
 
 
     }
