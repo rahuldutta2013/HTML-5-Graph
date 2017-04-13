@@ -2,7 +2,9 @@
     "chart": {
         "caption": "Half Yearly Revenue Analysis",
         "yaxisname": "Revenue",
-        "trainLine":"true"
+        "trainLine":"true",
+        "xAxis" : "true",
+        "yAxis" : "true"
       
     },
     "data": [

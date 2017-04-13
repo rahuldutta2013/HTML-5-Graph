@@ -25,6 +25,10 @@ function CanvasResponsive(canvasId) {
         canvasHeight = (window.innerHeight * 80) / 100;
         canvasId.setAttribute("width", canvasWidth);  //setting responsive width to canvas 
         canvasId.setAttribute("height", canvasHeight);//setting responsive height to canvas 
+
+
+       
+
         var myAxis = new Axis(canvasId, canvasHeight, canvasWidth, myParserManager.myData);
         myAxis.axisCalculation();
 

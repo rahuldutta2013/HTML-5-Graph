@@ -1,34 +1,28 @@
-function Axis(canvasId, canvasHeight, canvasWidth, valOfY) {
+function Axis(canvasId, canvasHeight, canvasWidth, totData) {
 
     this.axisCalculation = function () {
-        var canvas = document.getElementById('myCanvas'),
-            ctx = canvas.getContext('2d');
+        var myText = new GraphText();
+        var drawMyLine = new Line(); //craeting the object of Line class
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
         var arrOfValue = [],
             graphHeight = (this.canvasHeight * 97) / 100,
             origDist = (this.canvasWidth * 10) / 100;
 
-        //craeting the X axis (0,500)
-        ctx.beginPath();
-        ctx.moveTo(10, this.canvasHeight); //starting point of x-axis(10,500)
-        ctx.lineTo(this.canvasWidth, this.canvasHeight);//ending point of x-axis(1000,500)
-        ctx.stroke();
-
         //craeting the Y axis (10,0)
-        ctx.beginPath();
-        ctx.moveTo((this.canvasWidth * 3) / 100, 0); //starting point of y-axis(10,0)
-        ctx.lineTo((this.canvasWidth * 3) / 100, this.canvasHeight);//ending point of y-axis(10,500)
-        ctx.stroke();
-
-
-
-
-        for (var i = 0; i < valOfY.data.length; i++) { //getting the value x or y for creating axis
-            arrOfValue.push(valOfY.data[i].value);
+        if (totData.chart.yAxis === 'true') {
+            var val,
+                x1 = (this.canvasWidth * 5) / 100,
+                y1 = 0,
+                x2 = (this.canvasWidth * 5) / 100,
+                y2 = this.canvasHeight,
+                axisType = 'y';
+            drawMyLine.drawLine(x1, y1, x2, y2);
         }
 
-
+        for (var i = 0; i < totData.data.length; i++) { //getting the value x or y for creating axis
+            arrOfValue.push(totData.data[i].value);
+        }
 
         var gapInYaxis = (graphHeight / 10),
             text = 0,
@@ -36,7 +30,6 @@ function Axis(canvasId, canvasHeight, canvasWidth, valOfY) {
             xOrdinate = 0,
             minVal = Math.min.apply(NaN, arrOfValue),
             maxVal = Math.max.apply(NaN, arrOfValue),
-
             minAbs = Math.abs(minVal),
             maxAbs = Math.abs(maxVal),
             strMax = JSON.stringify(maxAbs),
@@ -45,7 +38,6 @@ function Axis(canvasId, canvasHeight, canvasWidth, valOfY) {
             resMin = strMin.split(""),
             addedValMax = resMax.length,
             addedValMin = resMin.length,
-
             limitHigh = Math.pow(10, addedValMax - 2),
             limitLow = Math.pow(10, addedValMin - 2);
 
@@ -55,45 +47,34 @@ function Axis(canvasId, canvasHeight, canvasWidth, valOfY) {
         } else {
             minVal -= limitLow;
         }
-
         var gap = (maxVal - (minVal)) / 10;
 
-
         //creating the division for coloumnChart
-        for (var j = 0; j <= 10; j++) {
-           
-            ctx.moveTo(0, yaxis);
-            ctx.lineTo(1000, yaxis);
-            ctx.stroke();
-            ctx.beginPath();
-           
-            ctx.fillStyle  = '#00F';
-            // ctx.font  = '90% Sans-Serif';
-            ctx.fillText(maxVal, 0 , yaxis-2); //writing the value in y-axis
-           
-            maxVal = maxVal - gap;
-            yaxis = yaxis + gapInYaxis;
+        if (totData.chart.trainLine === 'true') {
+            var color = 'blue';
+            for (var j = 0; j <= 10; j++) {
+                drawMyLine.drawLine(0, yaxis, this.canvasWidth, yaxis);
+                myText.fillText(0, yaxis, maxVal, color);
+                maxVal = maxVal - gap;
+                yaxis = yaxis + gapInYaxis;
+            }
         }
-
 
         var gapInXAxix, xOrdinate = 0;
         var widthOfBar,
             x,
-            noOfBar = valOfY.data.length,
+            noOfBar = totData.data.length,
             rightGap = (this.canvasWidth * 5) / 100,
             gapPlusWidthOfBar = ((this.canvasWidth - rightGap) / noOfBar);
-
-        gapInXAxix = x = widthOfBar = gapPlusWidthOfBar / 2;
-
-     
-        for (var p = 0; p < valOfY.data.length; p++) {
-            ctx.fillStyle  = '#00F';
-            ctx.font  = 'bold 110% Sans-Serif';
-            ctx.fillText(valOfY.data[p].label, xOrdinate + x, canvasHeight - ((canvasHeight * .5) / 100)); //writing the value in X-axis
+        gapInXAxix = x = widthOfBar = gapPlusWidthOfBar / 2,
+            axisType = 'x';
+        var color = 'blue';
+        // creating the x-Axis
+        drawMyLine.drawLine(xOrdinate + x, yaxis, this.canvasWidth, yaxis); //creating the x-Axis
+        for (var p = 0; p < totData.data.length; p++) {
+            myText.fillText(xOrdinate + x, canvasHeight - ((canvasHeight * .5) / 100), totData.data[p].label, color); //writing the value in x-Axis
             xOrdinate = xOrdinate + gapInXAxix + x;
         }
-
-
     }
-
 }
+
