@@ -1,14 +1,13 @@
-function Axis(canvasId, canvasHeight, canvasWidth, totData) {
-
-    this.axisCalculation = function () {
+function Axis() {
+    this.axisCalculation = function (canvasId, canvasHeight, canvasWidth, totData) {
         var myText = new GraphText();
         var drawMyLine = new Line(); //craeting the object of Line class
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
         var arrOfValue = [],
-            graphHeight = (this.canvasHeight * 97) / 100,
+            graphHeight = (this.canvasHeight * 91) / 100,
             origDist = (this.canvasWidth * 10) / 100;
-
+            var color = 'red';
         //craeting the Y axis (10,0)
         if (totData.chart.yAxis === 'true') {
             var val,
@@ -17,7 +16,8 @@ function Axis(canvasId, canvasHeight, canvasWidth, totData) {
                 x2 = (this.canvasWidth * 5) / 100,
                 y2 = this.canvasHeight,
                 axisType = 'y';
-            drawMyLine.drawLine(x1, y1, x2, y2);
+            drawMyLine.drawLine(x1, y1+20, x2, y2);
+            myText.fillText(0,y1+10,totData.chart.yaxisname,color);
         }
 
         for (var i = 0; i < totData.data.length; i++) { //getting the value x or y for creating axis
@@ -70,11 +70,15 @@ function Axis(canvasId, canvasHeight, canvasWidth, totData) {
             axisType = 'x';
         var color = 'blue';
         // creating the x-Axis
-        drawMyLine.drawLine(xOrdinate + x, yaxis, this.canvasWidth, yaxis); //creating the x-Axis
+        if(totData.chart.xAxis === 'true'){
+             drawMyLine.drawLine(xOrdinate + x, yaxis, this.canvasWidth, yaxis); //creating the x-Axis
+             myText.fillText(xOrdinate + x, canvasHeight - ((canvasHeight * 2) / 100), 'Months', color);
         for (var p = 0; p < totData.data.length; p++) {
-            myText.fillText(xOrdinate + x, canvasHeight - ((canvasHeight * .5) / 100), totData.data[p].label, color); //writing the value in x-Axis
+            myText.fillText(xOrdinate + x, canvasHeight - ((canvasHeight * 6) / 100), totData.data[p].label, color); //writing the value in x-Axis
             xOrdinate = xOrdinate + gapInXAxix + x;
         }
+        }
+       
     }
 }
 

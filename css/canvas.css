@@ -6,8 +6,10 @@
         background-color: #ffffcc;
         color:#00264d;
         border: 1px solid #00264d;
-        padding: .2%;
+        padding: .5%;
         font-size: 12px;
         font-weight: bold;
         border-radius: 3px; 
+        max-width: 11em;
+        text-align: center;
 }

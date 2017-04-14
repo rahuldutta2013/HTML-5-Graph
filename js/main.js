@@ -13,9 +13,8 @@ function CanvasResponsive(canvasId) {
         myGetData = myParserManager.getData("js/revenue.json");
     myGetData.then(function (resp) {  //try
         myParserManager.myData = resp;
-        myChartManager = new chartManager(myParserManager.myData);
-        data = myChartManager.myDataArr.slice();
-        var canvasWidth;
+
+        canvasWidth;
         var canvasHeight = 500;
         if (window.innerWidth > 1000) {
             canvasWidth = 1000;
@@ -26,17 +25,12 @@ function CanvasResponsive(canvasId) {
         canvasId.setAttribute("width", canvasWidth);  //setting responsive width to canvas 
         canvasId.setAttribute("height", canvasHeight);//setting responsive height to canvas 
 
-
-       
-
-        var myAxis = new Axis(canvasId, canvasHeight, canvasWidth, myParserManager.myData);
-        myAxis.axisCalculation();
-
-        var myColoumnChart = new ColoumnChart();
-        myColoumnChart.coloumnChart(data, canvasWidth, canvasHeight);
+        myChartManager = new chartManager(myParserManager.myData, canvasHeight, canvasWidth);
+        data = myChartManager.myDataArr.slice();
 
     })
         .catch(function (err) {  //catch
             console.log(err);
         })
+
 }
