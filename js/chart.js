@@ -2,7 +2,7 @@ function Chart(type, data, canvasWidth, canvasHeight) {
     switch (type) {
         case 'coloumnChart':
             var myColoumnChart = new ColoumnChart();
-            myColoumnChart.renderColoumnChart(data, canvasWidth, canvasHeight);
+            myColoumnChart.createChart(data, canvasWidth, canvasHeight);
             break;
         case 'barChart':
             console.log('');

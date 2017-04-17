@@ -20,7 +20,7 @@ function handleMouseMove(e, dots, dataArr) {
         var rXr = width * height;
         if (mouseX >= dot.xordi && mouseX < (dot.xordi + width) && mouseY >= dot.y && mouseY < (dot.y + height)) {
             hit = true;
-            index = i;
+            index = i+1;
         }
     }
     if (hit) {

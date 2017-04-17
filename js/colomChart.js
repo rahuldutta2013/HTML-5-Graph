@@ -5,9 +5,9 @@ var bindEvent = false;
 function ColoumnChart() {
     Chart.call(this);
 
-    this.renderColoumnChart = function (totData, canvasWidth, canvasHeight) { //overriding the renderChart property of chart class
 
-        var valOfY = [];
+function calculateColomnProprety(totData,canvasWidth,canvasHeight){
+      var valOfY = [];
 
         var dataLength = totData.data.length;
         for (var i = 0; i < dataLength; i++) {
@@ -40,6 +40,7 @@ function ColoumnChart() {
             limitHigh = Math.pow(10, addedValMax - 2),
             limitLow = Math.pow(10, addedValMin - 2);
         var rects = [];
+        var coOrdinatesOfRectangle = [];
         maxVal += limitHigh;
         if (minVal > 0) {
             minVal = 0;
@@ -55,13 +56,22 @@ function ColoumnChart() {
                 valOfY[p] = valOfY[p] - (minVal);
             }
             var val = (gapInYaxis * valOfY[p]) / gap,
-                obj = {};
+                obj = {},
+                objOfRectangle = {};
+
+                objOfRectangle.xordi = xOrdinate + x;
+                objOfRectangle.y = graphHeight;
+                objOfRectangle.width = widthOfBar;
+                objOfRectangle.height = -val;
+
             obj.xordi = xOrdinate + x;
             obj.y = graphHeight - val;
             obj.width = widthOfBar;
             obj.height = val;
+
             rects.push(obj);
-            createMyRect.drawRect(xOrdinate + x, graphHeight, widthOfBar, -val, color);//draws rectangle on graph
+            coOrdinatesOfRectangle.push(objOfRectangle)
+
             xOrdinate = xOrdinate + gapInXAxix + x;
         }
 
@@ -74,9 +84,21 @@ function ColoumnChart() {
             bindEvent = true;
         }
 
+        return coOrdinatesOfRectangle;
+}
 
-
-
+function drawColoumnChart(arr){
+    var dataLength = arr.length;
+    var color = 'green';
+    for(var i = 0;i < dataLength;i++){
+        createMyRect.drawRect(arr[i].xordi, arr[i].y, arr[i].width, arr[i].height, color);
     }
+}
+
+this.createChart = function(totData, canvasWidth, canvasHeight){
+    var obj = calculateColomnProprety(totData, canvasWidth, canvasHeight);
+    drawColoumnChart(obj);
+}
+
 }
 ColoumnChart.prototype = Chart.prototype; //inheriting the ColoumnChart property from chart class into coloumncahrt class
