@@ -5,7 +5,7 @@ $(document).ready(function () {
     window.addEventListener('resize', function () { CanvasResponsive(canvasId) });
 });
 
-//function to create dynamic height and width of the canvas with respect to the window
+//function to create dynamic height and width of the canvas
 function CanvasResponsive(canvasId) {
     var myChartManager,
         data = [],

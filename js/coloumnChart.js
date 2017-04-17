@@ -1,7 +1,6 @@
 var createMyRect = new Rectangle();//creating the a object of rectangle class
 var tooltip = [];
-var rects = [];
-
+var bindEvent = false;
 // function to create coloumnChart
 function ColoumnChart() {
     Chart.call(this);
@@ -40,6 +39,7 @@ function ColoumnChart() {
             addedValMin = resMin.length,
             limitHigh = Math.pow(10, addedValMax - 2),
             limitLow = Math.pow(10, addedValMin - 2);
+        var rects = [];
         maxVal += limitHigh;
         if (minVal > 0) {
             minVal = 0;
@@ -64,10 +64,27 @@ function ColoumnChart() {
             createMyRect.drawRect(xOrdinate + x, graphHeight, widthOfBar, -val, color);//draws rectangle on graph
             xOrdinate = xOrdinate + gapInXAxix + x;
         }
+
+        console.log(rects);
+
+        if (bindEvent === false) {
+            $(document).on('mousemove', '#myCanvas', function () {
+                handleMouseMove(event, rects, tooltip);
+            });
+
+            $(document).on('click', '#myCanvas', function () {
+                console.log('hh');
+            });
+            bindEvent = true;
+        }
+
+
+
+
     }
 }
 ColoumnChart.prototype = Chart.prototype; //inheriting the ColoumnChart property from chart class into coloumncahrt class
 
-$(document).on('mousemove', '#myCanvas', function () {
-    handleMouseMove(event, rects, tooltip);
-});
+// $(document).on('mousemove', '#myCanvas', function () {
+//     handleMouseMove(event, rects, tooltip);
+// });

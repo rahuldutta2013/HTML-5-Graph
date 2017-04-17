@@ -46,7 +46,6 @@ function Axis() {
             minVal -= limitLow;
         }
         var gap = (maxVal - (minVal)) / 10;
-
         //creating the division for coloumnChart
         if (totData.chart.trainLine === 'true') {
             var color = 'blue';
@@ -67,7 +66,7 @@ function Axis() {
         gapInXAxix = x = widthOfBar = gapPlusWidthOfBar / 2,
             axisType = 'x';
         var color = 'blue';
-        
+
         // creating the x-Axis
         if (totData.chart.xAxis === 'true') {
             drawMyLine.drawLine(xOrdinate + x, yaxis, this.canvasWidth, yaxis); //creating the x-Axis
