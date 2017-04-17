@@ -7,19 +7,17 @@ function Axis() {
         var arrOfValue = [],
             graphHeight = (this.canvasHeight * 91) / 100,
             origDist = (this.canvasWidth * 10) / 100;
-            var color = 'red';
+        var color = 'red';
         //craeting the Y axis (10,0)
         if (totData.chart.yAxis === 'true') {
             var val,
                 x1 = (this.canvasWidth * 5) / 100,
                 y1 = 0,
                 x2 = (this.canvasWidth * 5) / 100,
-                y2 = this.canvasHeight,
-                axisType = 'y';
-            drawMyLine.drawLine(x1, y1+20, x2, y2);
-            myText.fillText(0,y1+10,totData.chart.yaxisname,color);
+                y2 = this.canvasHeight;
+            drawMyLine.drawLine(x1, y1, x2, y2);
+            myText.fillText(0, y1 + 10, totData.chart.yaxisname, color);
         }
-
         for (var i = 0; i < totData.data.length; i++) { //getting the value x or y for creating axis
             arrOfValue.push(totData.data[i].value);
         }
@@ -53,7 +51,7 @@ function Axis() {
         if (totData.chart.trainLine === 'true') {
             var color = 'blue';
             for (var j = 0; j <= 10; j++) {
-                drawMyLine.drawLine(0, yaxis, this.canvasWidth, yaxis);
+                drawMyLine.drawLine(x1, yaxis, this.canvasWidth, yaxis);
                 myText.fillText(0, yaxis, maxVal, color);
                 maxVal = maxVal - gap;
                 yaxis = yaxis + gapInYaxis;
@@ -69,16 +67,17 @@ function Axis() {
         gapInXAxix = x = widthOfBar = gapPlusWidthOfBar / 2,
             axisType = 'x';
         var color = 'blue';
+        
         // creating the x-Axis
-        if(totData.chart.xAxis === 'true'){
-             drawMyLine.drawLine(xOrdinate + x, yaxis, this.canvasWidth, yaxis); //creating the x-Axis
-             myText.fillText(xOrdinate + x, canvasHeight - ((canvasHeight * 2) / 100), 'Months', color);
-        for (var p = 0; p < totData.data.length; p++) {
-            myText.fillText(xOrdinate + x, canvasHeight - ((canvasHeight * 6) / 100), totData.data[p].label, color); //writing the value in x-Axis
-            xOrdinate = xOrdinate + gapInXAxix + x;
+        if (totData.chart.xAxis === 'true') {
+            drawMyLine.drawLine(xOrdinate + x, yaxis, this.canvasWidth, yaxis); //creating the x-Axis
+            myText.fillText(xOrdinate + x, canvasHeight - ((canvasHeight * 2) / 100), 'Months', color);
+            for (var p = 0; p < totData.data.length; p++) {
+                myText.fillText(xOrdinate + x, canvasHeight - ((canvasHeight * 6) / 100), totData.data[p].label, color); //writing the value in x-Axis
+                xOrdinate = xOrdinate + gapInXAxix + x;
+            }
         }
-        }
-       
+
     }
 }
 

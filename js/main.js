@@ -5,7 +5,7 @@ $(document).ready(function () {
     window.addEventListener('resize', function () { CanvasResponsive(canvasId) });
 });
 
-//function to make canvas responsive
+//function to create dynamic height and width of the canvas with respect to the window
 function CanvasResponsive(canvasId) {
     var myChartManager,
         data = [],
@@ -25,8 +25,7 @@ function CanvasResponsive(canvasId) {
         canvasId.setAttribute("width", canvasWidth);  //setting responsive width to canvas 
         canvasId.setAttribute("height", canvasHeight);//setting responsive height to canvas 
 
-        myChartManager = new chartManager(myParserManager.myData, canvasHeight, canvasWidth);
-        data = myChartManager.myDataArr.slice();
+        myChartManager = new chartManager(myParserManager.myData, canvasHeight, canvasWidth); //calling chart manager to create chart
 
     })
         .catch(function (err) {  //catch

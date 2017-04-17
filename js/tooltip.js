@@ -25,7 +25,7 @@ function handleMouseMove(e, dots, dataArr) {
     }
     if (hit) {
         tooltip.text(dataArr[index]);
-        tooltip.css({ "position": "absolute", "top": mouseY - 20, "left": mouseX - 20, "display": "block" });
+        tooltip.css({ "position": "absolute", "top": mouseY - 60, "left": mouseX - 60, "display": "block" });
     } else {
         tooltip.empty().css("display", "none");
     }
