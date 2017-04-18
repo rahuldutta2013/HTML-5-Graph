@@ -1,4 +1,4 @@
-var tooltip = $('span');
+var tooltip = $('span.tooltip');
 //craeting tooltip
 function handleMouseMove(e, dots, dataArr) {
     var graph = document.getElementById("myCanvas");
