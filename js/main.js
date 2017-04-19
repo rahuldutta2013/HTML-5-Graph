@@ -24,7 +24,8 @@ function CanvasResponsive(canvasId) {
         canvasHeight = (window.innerHeight * 80) / 100;
         canvasId.setAttribute("width", canvasWidth);  //setting responsive width to canvas 
         canvasId.setAttribute("height", canvasHeight);//setting responsive height to canvas 
-
+        var halfOfWidth = canvasWidth/2;
+        canvasId.style.marginLeft = -halfOfWidth+'px';
         myChartManager = new chartManager(myParserManager.myData, canvasHeight, canvasWidth); //calling chart manager to create chart
 
     })

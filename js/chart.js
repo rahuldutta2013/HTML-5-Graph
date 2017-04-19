@@ -1,3 +1,4 @@
+//depending on type respective Chart will be created
 function Chart(type, data, canvasWidth, canvasHeight) {
     switch (type) {
         case 'coloumnChart':
@@ -5,16 +6,16 @@ function Chart(type, data, canvasWidth, canvasHeight) {
             myColoumnChart.createChart(data, canvasWidth, canvasHeight);
             break;
         case 'barChart':
-            console.log('');
+            console.log('yet not created');
             break;
         case 'pointChart':
-            console.log('');
+            console.log('yet not created');
             break;
         case 'piChart':
-            console.log('');
+            console.log('yet not created');
             break;
         case 'lineChart':
-            console.log('');
+            console.log('yet not created');
             break;
     }
     this.renderChart = function () { };

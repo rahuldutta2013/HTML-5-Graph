@@ -1,0 +1,22 @@
+{
+  "name": "html5-graph",
+  "version": "1.0.0",
+  "description": "this application displays canvas column chart",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rahuldutta2013/HTML-5-Graph.git"
+  },
+  "author": "Rahul Dutta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rahuldutta2013/HTML-5-Graph/issues"
+  },
+  "homepage": "https://github.com/rahuldutta2013/HTML-5-Graph#readme",
+  "dependencies": {
+    "jquery": "^3.2.1"
+  }
+}

@@ -2,7 +2,7 @@ function Axis() {
     var myText = new GraphText();//creating the object of Text class
     var drawMyLine = new Line(); //creating the object of Line class
 
-    function calXAxis(totData, canvasHeight, canvasWidth) {
+    var calXAxis = function (totData, canvasHeight, canvasWidth) {
         var gapInXAxix,
             xOrdinate = 0,
             widthOfBar,
@@ -12,28 +12,48 @@ function Axis() {
             rightGap = (canvasWidth * 5) / 100,
             gapPlusWidthOfBar = ((canvasWidth - rightGap) / noOfBar);
         gapInXAxix = x = widthOfBar = gapPlusWidthOfBar / 2;
-
-        myText.fillText(xOrdinate + x, canvasHeight - ((canvasHeight * 2) / 100), 'Months', color);
+        var arr = [];
+        var xAxisName = {};
+        xAxisName.x = xOrdinate + x;
+        xAxisName.y = canvasHeight - ((canvasHeight * 2) / 100);
+        xAxisName.label = 'Months';
+        xAxisName.color = 'brown';
+        arr.push(xAxisName);
         for (var p = 0; p < totData.data.length; p++) {
-            myText.fillText(xOrdinate + x, canvasHeight - ((canvasHeight * 6) / 100), totData.data[p].label, color); //writing the value in x-Axis
+            var text = {}, line = {}, obj = {};
+            text.x = xOrdinate + x;
+            text.y = canvasHeight - ((canvasHeight * 6) / 100);
+            text.label = totData.data[p].label;
+            text.color = color;
+            arr.push(text);
             xOrdinate = xOrdinate + gapInXAxix + x;
         }
+        return arr; //returning co-ordinates of x-axis
     }
 
-    function calYAxis(canvasHeight, canvasWidth, totData) {
+    var calYAxis = function (canvasHeight, canvasWidth, totData) {
         var val,
             x1 = (canvasWidth * 5) / 100,
             y1 = 0,
             x2 = (canvasWidth * 5) / 100,
             y2 = canvasHeight,
             color = 'red';
-
-        drawMyLine.drawLine(x1, y1, x2, y2);
-        myText.fillText(0, y1 + 10, totData.chart.yaxisname, color);
-
+        var text = {}, line = {}, obj = {}, arr = [];
+        text.x = 0;
+        text.y = y1 + 10;
+        text.label = totData.chart.yaxisname;
+        text.color = color;
+        line.x1 = x1;
+        line.y1 = y1;
+        line.x2 = x2;
+        line.y2 = y2;
+        obj.line = line;
+        obj.text = text;
+        arr.push(obj);
+        return arr; //returning co-ordinates of y-axis
     }
 
-    function calTrainLines(totData, canvasHeight, canvasWidth) {
+    var calTrendLines = function (totData, canvasHeight, canvasWidth) {
         var arrOfValue = [],
             graphHeight = (canvasHeight * 91) / 100;
         for (var i = 0; i < totData.data.length; i++) { //getting the value x or y for creating axis
@@ -63,29 +83,52 @@ function Axis() {
         }
         var gap = (maxVal - (minVal)) / 10;
         var x1 = (canvasWidth * 5) / 100;
-
-        //creating trainlines
-        var color = 'blue';
+        var color = 'blue',
+            arr = [];
         for (var j = 0; j <= 10; j++) {
-            drawMyLine.drawLine(x1, yaxis, canvasWidth, yaxis);
-            myText.fillText(0, yaxis, maxVal, color);
+            var line = {}, text = {}, obj = {};
+
+            line.x1 = x1;
+            line.y1 = yaxis;
+            line.x2 = canvasWidth;
+            line.y2 = yaxis;
+            text.x = 0;
+            text.y = yaxis;
+            text.label = maxVal;
+            text.color = color;
+            obj.trendLine = line;
+            obj.trendText = text;
+            arr.push(obj);
             maxVal = maxVal - gap;
             yaxis = yaxis + gapInYaxis;
         }
+        return arr; //returning the co-ordinates of trendlins
     }
 
     this.createAxis = function (canvasHeight, canvasWidth, totData) {
         if (totData.chart.xAxis === 'true') {
-            calXAxis(totData, canvasHeight, canvasWidth);
+            var xAxis = calXAxis(totData, canvasHeight, canvasWidth);
+            for (var i = 0; i < xAxis.length; i++) {
+                myText.fillText(xAxis[i].x, xAxis[i].y, xAxis[i].label, xAxis[i].color); //creating x-axis          
+            }
         }
 
         if (totData.chart.yAxis === 'true') {
-            calYAxis(canvasHeight, canvasWidth, totData);
+            var yAxis = calYAxis(canvasHeight, canvasWidth, totData);
+            //creating y-axis
+            for (var i = 0; i < yAxis.length; i++) {
+                myText.fillText(yAxis[i].text.x, yAxis[i].text.y, yAxis[i].text.label, yAxis[i].text.color);
+                drawMyLine.drawLine(yAxis[i].line.x1, yAxis[i].line.y1, yAxis[i].line.x2, yAxis[i].line.y2);
+            }
         }
 
-        if (totData.chart.trainLine === 'true') {
-            calTrainLines(totData, canvasHeight, canvasWidth);
+        if (totData.chart.trendLine === 'true') {
+            var trendlineArr = calTrendLines(totData, canvasHeight, canvasWidth);
+            // creating trendlins
+            for (var i = 0; i < trendlineArr.length; i++) {
+                myText.fillText(trendlineArr[i].trendText.x, trendlineArr[i].trendText.y, trendlineArr[i].trendText.label, trendlineArr[i].trendText.color); //writing the value in x-Axis
+                drawMyLine.drawLine(trendlineArr[i].trendLine.x1, trendlineArr[i].trendLine.y1, trendlineArr[i].trendLine.x2, trendlineArr[i].trendLine.y2);
+            }
         }
     }
-
 }

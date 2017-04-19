@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="css/canvas.css">
-        <title>HTML 5 chart</title>
-     </head>   
+<head>
+    <link rel="stylesheet" href="css/canvas.css">
+    <title>HTML 5 chart</title>
+</head>
+
 <body>
-    <canvas id="myCanvas" ></canvas>
-     <span class="tooltip"></span>
-     <span class="caption"></span>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <canvas id="myCanvas" class="position"></canvas>
+    <p class="caption"></p>
+    <span class="tooltip"></span>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="js/parserManager.js"></script>
     <script src="js/chartManager.js"></script>
+    <script src="js/graphCaption.js"></script>
     <script src="js/chart.js"></script>
     <script src="js/rectangle.js"></script>
     <script src="js/coloumnChart.js"></script>
